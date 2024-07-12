@@ -37,4 +37,16 @@ describe(PokemonFinder, () => {
   });
 
   // エラーメッセージに関するテスト
+  test("データ取得中にエラーが発生した場合にエラーメッセージが表示される"),
+    async () => {
+      const user = userEvent.setup();
+      const inputElement = screen.getByPlaceholderText("ポケモンのIDを入力");
+      await user.type(inputElement, "2000");
+
+      const buttonElement = screen.getByRole("button");
+      await user.click(buttonElement);
+
+      const pokemonName = screen.getByText("ポケモンデータが見つかりません。");
+      expect(pokemonName).toBeInTheDocument();
+    };
 });
